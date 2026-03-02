@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>badka-ops</title>
+    <style>
+        :root { 
+            --bg: #070707; 
+            --text: #d4d4d4; 
+            --accent: #ff4500; 
+            --glass-bg: rgba(20, 20, 20, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+        
+        body { 
+            font-family: 'Courier New', Courier, monospace; 
+            background: radial-gradient(circle at 50% -20%, #1f1f1f 0%, var(--bg) 80%);
+            color: var(--text); 
+            margin: 0; 
+            padding: 4rem 5% 2rem; 
+            line-height: 1.6; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Merkeze Alınmış, Temiz Başlık */
+        header { text-align: center; margin-bottom: 4rem; }
+        h1 { color: #fff; font-size: 2.5rem; letter-spacing: 4px; margin: 0; font-weight: normal; }
+        
+        main { flex-grow: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
+        
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+        
+        /* Kart Mimarisi */
+        .card { 
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border); 
+            border-radius: 8px;
+            padding: 1.5rem; 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .card:hover { 
+            border-color: rgba(255, 255, 255, 0.2); 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
+        }
+        
+        .avatar { width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--glass-border); margin-bottom: 1rem; padding: 4px; transition: border-color 0.3s; }
+        .card:hover .avatar { border-color: rgba(255, 255, 255, 0.3); }
+        
+        .card h3 { margin: 0 0 0.2rem 0; color: #fff; letter-spacing: 1px; }
+        .card .role { color: #888; font-size: 0.85rem; margin-bottom: 1.5rem; }
+        
+        /* Yetenek Rozetleri */
+        .skills { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin-bottom: 1.5rem; flex-grow: 1; }
+        .skills img { height: 24px; border-radius: 4px; transition: transform 0.2s; opacity: 0.9; }
+        .skills img:hover { transform: scale(1.05); opacity: 1; }
+        
+        /* İletişim Butonları */
+        .contact-grid { display: flex; gap: 0.5rem; width: 100%; margin-bottom: 1rem; justify-content: center; }
+        .contact-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+            color: #aaa; font-size: 0.8rem; text-decoration: none; border: 1px solid var(--glass-border); 
+            padding: 0.5rem 1rem; border-radius: 4px; transition: 0.2s; background: rgba(0,0,0,0.3); flex-grow: 1;
+        }
+        .contact-btn:hover { color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); fill: #fff; }
+        .contact-btn svg { fill: #aaa; transition: 0.2s; }
+        .contact-btn:hover svg { fill: #fff; }
+
+        /* Rafine Edilmiş GitHub Butonu */
+        .card .main-btn { 
+            color: #aaa; text-decoration: none; border: 1px dashed var(--glass-border); 
+            padding: 0.6rem 1rem; border-radius: 4px; transition: all 0.3s ease; 
+            width: 100%; box-sizing: border-box; background: transparent;
+            font-size: 0.9rem; letter-spacing: 1px;
+        }
+        .card:hover .main-btn { border-color: rgba(255,255,255,0.2); color: #fff; }
+        .card .main-btn:hover { 
+            background: rgba(255, 69, 0, 0.05); 
+            color: var(--accent); 
+            border-color: var(--accent); 
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.15);
+        }
+        
+        footer { text-align: center; padding: 2rem 0; border-top: 1px dashed var(--glass-border); color: #555; font-size: 0.85rem; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>[ badka-ops ]</h1>
+    </header>
+
+    <main>
+        <div id="team-container" class="grid-container">
+            <span style="color: #555; text-align: center; width: 100%;">>_ Ajanlar doğrulanıyor...</span>
+        </div>
+
+        <div id="repo-container" class="grid-container">
+            <span style="color: #555; text-align: center; width: 100%;">>_ API verisi bekleniyor...</span>
+        </div>
+    </main>
+
+    <footer>
+        <p>>_ operating and deployed from Konya, Kulu.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const mailIcon = `<svg viewBox="0 0 24 24" width="16" height="16"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>`;
+            const tgIcon = `<svg viewBox="0 0 24 24" width="16" height="16"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.666 3.473-1.524 5.783-2.529 6.937-3.053 3.29-1.502 3.973-1.746 4.41-1.752z"/></svg>`;
+
+            const team = [
+                { 
+                    login: 'reverx99', 
+                    role: 'Systems Architecture & Core Ops', 
+                    skills: [
+                        'https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black',
+                        'https://img.shields.io/badge/C-00599C?style=flat-square&logo=c&logoColor=white',
+                        'https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white',
+                        'https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white',
+                        'https://img.shields.io/badge/Nginx-009639?style=flat-square&logo=nginx&logoColor=white',
+                        'https://img.shields.io/badge/Odoo-714B67?style=flat-square&logo=odoo&logoColor=white'
+                    ], 
+                    mail: 'reverx99@ornek.com', 
+                    tg: 'reverx99' 
+                },
+                { 
+                    login: 'mercedes-axor', 
+                    role: 'Full Stack & Integrations', 
+                    skills: [
+                        'https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white',
+                        'https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white',
+                        'https://img.shields.io/badge/PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white',
+                        'https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white'
+                    ], 
+                    mail: 'yaman@ornek.com', 
+                    tg: 'yaman_tg' 
+                },
+                { 
+                    login: 'egementatar', 
+                    role: 'Software Developer', 
+                    skills: [
+                        'https://img.shields.io/badge/C%23-239120?style=flat-square&logo=c-sharp&logoColor=white',
+                        'https://img.shields.io/badge/.NET-512BD4?style=flat-square&logo=dotnet&logoColor=white',
+                        'https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB',
+                        'https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black'
+                    ], 
+                    mail: 'lou@ornek.com', 
+                    tg: 'lou_tg' 
+                }
+            ];
+
+            const teamContainer = document.getElementById('team-container');
+            teamContainer.innerHTML = ''; 
+
+            team.forEach(member => {
+                fetch(`https://api.github.com/users/${member.login}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        const skillsHtml = member.skills.map(badgeUrl => `<img src="${badgeUrl}" alt="skill badge">`).join('');
+                        
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                            <img src="${data.avatar_url}" alt="${member.login}" class="avatar">
+                            <h3>${member.login}</h3>
+                            <div class="role">>_ ${member.role}</div>
+                            <div class="skills">${skillsHtml}</div>
+                            <div class="contact-grid">
+                                <a href="mailto:${member.mail}" class="contact-btn">${mailIcon} Mail</a>
+                                <a href="https://t.me/${member.tg}" target="_blank" class="contact-btn">${tgIcon} Telegram</a>
+                            </div>
+                            <a href="${data.html_url}" target="_blank" class="main-btn">[ GitHub Profili ]</a>
+                        `;
+                        teamContainer.appendChild(card);
+                    });
+            });
+
+            const orgName = 'badka-ops';
+            const repoContainer = document.getElementById('repo-container');
+
+            fetch(`https://api.github.com/orgs/${orgName}/repos?sort=updated`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Ağ yanıtı sorunlu.');
+                    return response.json();
+                })
+                .then(repos => {
+                    repoContainer.innerHTML = ''; 
+                    if (repos.length === 0) {
+                        repoContainer.innerHTML = '<p style="text-align: center; width: 100%;">>_ Henüz public bir operasyon bulunamadı.</p>';
+                        return;
+                    }
+                    repos.forEach(repo => {
+                        if(!repo.fork) {
+                            const card = document.createElement('div');
+                            card.className = 'card';
+                            card.innerHTML = `
+                                <h3 style="margin-bottom:1rem; align-self:flex-start;">${repo.name}</h3>
+                                <div style="font-size:0.85rem; color:#888; margin-bottom:1rem; text-align:left; width:100%; flex-grow:1;">
+                                    ${repo.description || 'Açıklama girilmemiş.'}
+                                </div>
+                                <div style="display:flex; justify-content:space-between; width:100%; margin-bottom:1.5rem; font-size:0.8rem; color:#666;">
+                                    <span>⭐ ${repo.stargazers_count}</span>
+                                    <span>🛠️ ${repo.language || 'Bilinmiyor'}</span>
+                                </div>
+                                <a href="${repo.html_url}" target="_blank" class="main-btn">Repoya Git</a>
+                            `;
+                            repoContainer.appendChild(card);
+                        }
+                    });
+                })
+                .catch(error => {
+                    repoContainer.innerHTML = `<p style="color: red; text-align: center; width: 100%;">>_ API Bağlantı Hatası.</p>`;
+                });
+        });
+    </script>
+</body>
+</html>
